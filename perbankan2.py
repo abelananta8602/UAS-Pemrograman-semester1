@@ -3,18 +3,26 @@ def start():
     portofolio_investasi = []
     while True:
         print("Mohon Untuk Mengisi Dengan Benar")
-        service = input("Pilih layanan\n 1. Kredit\n 2. Investasi\n 3. Layanan Pelanggan\n 4. Keluar\n :").lower()
-        if service == "1":
-            pengajuan_kredit()
-        elif service == "2":
-            investasi()
-        elif service == "3":
-            penerimaan_keluhan()
-        elif service == "4":
-            print("Terima kasih telah menggunakan layanan kami.")
-            break  
+        print("Silahkan Untuk Memilih Layanan:")
+        print("1. Kredit")
+        print("2. investasi / Tabungan")
+        print("3. Keluhan")
+        print("4. Keluar")
+        service = input("Masukkan pilihan (1/2/3/4): ")
+        
+        if service in ['1', '2', '3', '4']:
+            if service == "1":
+                pengajuan_kredit()
+            elif service == "2":
+                investasi()
+            elif service == "3":
+                penerimaan_keluhan()   
+            elif service == "4":
+                print("Terima kasih telah menggunakan layanan kami.")
+            break          
         else:
-            print("Layanan tidak Valid. Silakan coba lagi.")
+            print("Pilihan Anda tidak valid. Silakan coba lagi.")
+        
             
 def investasi():
     keuntungan = input("Apakah Anda ingin berinvestasi untuk keuntungan? (ya/tidak): ").lower()
@@ -26,15 +34,15 @@ def investasi():
 def pemilihan_produk_investasi():
     global portofolio_investasi
     print("Pemilihan Produk Investasi:")
-    investasi_options = ["Reksadana", "Obligasi", "Derivatif"]
+    investasi_options = ["1.Reksadana", "2.Obligasi", "3.Derivatif"]
     for option in investasi_options:
         print(f"- {option}")
     pilihan_investasi = input("Pilih jenis investasi yang diinginkan: ").title()
-    if pilihan_investasi == "Reksadana":
+    if pilihan_investasi == "1" and "reksadana":
         pilihan_reksadana()
-    elif pilihan_investasi == "Obligasi":
+    elif pilihan_investasi == "2" and "Obligasi":
         pilihan_obligasi()
-    elif pilihan_investasi == "Derivatif":
+    elif pilihan_investasi == "3" and "Derivatif":
         pilihan_derivatif()
     else:
         print("Pilihan investasi tidak valid. Silakan coba lagi.")
@@ -45,100 +53,123 @@ def pemilihan_produk_tabungan():
     tabungan_options = ["Tabungan", "Deposito"]
     for option in tabungan_options:
         print(f"- {option}")
-    pilihan_tabungan = input("Pilih jenis tabungan yang diinginkan: ").title()
+    pilihan_tabungan = input("Pilih jenis yang anda diinginkan: ").title()
+    if setujui_resiko():
+        if setujui_syarat_dan_ketentuan():
+                            jumlah_deposit = input_deposit_tabungan_deposito()
+                            tambah_ke_portofolio("Reksadana Campuran", jumlah_deposit)
+                            pemantauan_portofolio_investasi()          
     
 def pilihan_reksadana():
-    print("Pilihan Reksadana:")
-    reksadana_options = ["Reksadana Pasar Uang", "Reksadana Saham", "Reksadana Campuran"]
-    for option in reksadana_options:
-        print(f"- {option}")
-    pilihan_reksadana = input("Pilih jenis reksadana yang diinginkan: ").title()
+        print("Pilih jenis Reksadana:")
+        print("1. Reksadana Pasar Uang")
+        print("2. Reksadana Saham")
+        print("3. Reksadana Campuran")
+        pilihan_reksadana = input("Masukkan pilihan (1/2/3): ")
+        
+        if pilihan_reksadana in ['1', '2', '3']:
+            if pilihan_reksadana == '1':
+               print("Anda memilih Reksadana Pasar Uang.")
+            if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Reksadana Pasar Uang", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_reksadana == '2':
+                print("Anda memilih Reksadana Saham.")
+                if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Reksadana Saham", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_reksadana == '3':
+                print("Anda memilih Reksadana Campuran.")
+                if setujui_resiko():
+                         if setujui_syarat_dan_ketentuan():
+                            jumlah_deposit = input_jumlah_deposit()
+                            tambah_ke_portofolio("Reksadana Campuran", jumlah_deposit)
+                            pemantauan_portofolio_investasi()          
+    
+            
+        else:
+            print("Pilihan Anda tidak valid. Silakan coba lagi.")
+        investasi_lagi()
 
-    if pilihan_reksadana == "Reksadana Pasar Uang":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Reksadana Pasar Uang", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Reksadana pasar saham":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Reksadana Pasar saham", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Reksadana pasar Campuran":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Reksadana Campuran", jumlah_deposit)
-                pemantauan_portofolio_investasi()          
-    
-    else:
-        print("Pilihan Anda tidak valid.")
-    
-    investasi_lagi()
-    
 def pilihan_obligasi():
-    print("Pilihan Obligasi:")
-    reksadana_options = ["Obligasi pemerintah", "Obligasi Korporasi", "Obligasi Komunal"]
-    for option in reksadana_options:
-        print(f"- {option}")
-    pilihan_reksadana = input("Pilih jenis Obligasi yang diinginkan: ").title()
+        print("Pilih jenis obligasi:")
+        print("1. Obligasi pemerintah")
+        print("2. Obligasi Korporasi")
+        print("3. Obligasi Komunal")
+        pilihan_obligasi = input("Masukkan pilihan (1/2/3): ")
+        
+        if pilihan_obligasi in ['1', '2', '3']:
+            if pilihan_obligasi == '1':
+               print("Anda memilih Obligasi pemerintah.")
+            if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Obligasi pemerintah", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_obligasi == '2':
+                print("Anda memilih Obligasi Korporasi.")
+                if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Obligasi Korporasi", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_obligasi == '3':
+                print("Anda memilih Obligasi Komunal.")
+                if setujui_resiko():
+                         if setujui_syarat_dan_ketentuan():
+                            jumlah_deposit = input_jumlah_deposit()
+                            tambah_ke_portofolio("Obligasi Komunal", jumlah_deposit)
+                            pemantauan_portofolio_investasi()          
+    
+            
+        else:
+            print("Pilihan Anda tidak valid. Silakan coba lagi.")
+        investasi_lagi()
 
-    if pilihan_reksadana == "Obligasi pemerintah":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Obligasi pemerintah", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Obligasi Korporasi":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Obligasi Korporasi", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Reksadana pasar Campuran":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Obligasi Komunal", jumlah_deposit)
-                pemantauan_portofolio_investasi()          
-    
-    else:
-        print("Pilihan Anda tidak valid.")
-    
-    investasi_lagi()
-    
+        
 def pilihan_derivatif():
-    print("Pilihan Derivatif:")
-    reksadana_options = ["Option", "Future", "Swap"]
-    for option in reksadana_options:
-        print(f"- {option}")
-    pilihan_reksadana = input("Pilih jenis yang diinginkan: ").title()
+        print("Pilih jenis Reksadana:")
+        print("1. Option")
+        print("2. Future")
+        print("3. Swap")
+        pilihan_derivatif = input("Masukkan pilihan (1/2/3): ")
+        
+        if pilihan_derivatif in ['1', '2', '3']:
+            if pilihan_derivatif == '1':
+               print("Anda memilih Option.")
+            if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Option", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_derivatif == '2':
+                print("Anda memilih Future.")
+                if setujui_resiko():
+                    if setujui_syarat_dan_ketentuan():
+                        jumlah_deposit = input_jumlah_deposit()
+                        tambah_ke_portofolio("Future", jumlah_deposit)
+                        pemantauan_portofolio_investasi()
+            elif pilihan_derivatif == '3':
+                print("Anda memilih Swap.")
+                if setujui_resiko():
+                         if setujui_syarat_dan_ketentuan():
+                            jumlah_deposit = input_jumlah_deposit()
+                            tambah_ke_portofolio("Swap", jumlah_deposit)
+                            pemantauan_portofolio_investasi()          
+    
+            
+        else:
+            print("Pilihan Anda tidak valid. Silakan coba lagi.")
+        investasi_lagi()
+        
 
-    if pilihan_reksadana == "Option":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Investasi Option Anda", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Future":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Investasi Future Anda", jumlah_deposit)
-                pemantauan_portofolio_investasi()
-    elif pilihan_reksadana == "Swap":
-        if setujui_resiko():
-            if setujui_syarat_dan_ketentuan():
-                jumlah_deposit = input_jumlah_deposit()
-                tambah_ke_portofolio("Investasi Swap Anda", jumlah_deposit)
-                pemantauan_portofolio_investasi()          
-    
-    else:
-        print("Pilihan Anda tidak valid.")
-    
-    investasi_lagi()
+def input_deposit_tabungan_deposito():
+    jumlah = float(input("Masukkan jumlah yang anda inginkan: "))
+    return jumlah
 
 def setujui_resiko():
     persetujuan = input("Apakah Anda memahami dan menyetujui risiko investasi? (ya/tidak): ").lower()
@@ -193,41 +224,6 @@ def tanya_lanjut():
     lanjut = input("Apakah Anda ingin melanjutkan ke layanan lain? (ya/tidak): ").lower()
     return lanjut == "ya"
 
-"""def pengajuan_kredit():
-   
-    while True:
-        data_kredit = input_data_kredit()
-        if cek_kelengkapan_data(data_kredit):
-            if pemeriksaan_nilai_jaminan(data_kredit['jaminan']):
-                pencairan_dana()
-                break
-            else:
-                print("Nilai jaminan tidak Memenuhi. Silakan masukkan data jaminan yang lain.")
-        else:
-            print("Data tidak lengkap. Silakan isi data dengan lengkap.")
-
-def input_data_kredit():
-    
-    print("Silakan masukkan data untuk pengajuan kredit")
-    ktp = input("Nomor KTP: ")
-    npwp = input("Nomor NPWP: ")
-    bukti_penghasilan = input("Bukti Penghasilan: ")
-    jaminan = input("Jaminan (Rumah/Mobil/Motor): ")
-    return {'ktp': ktp, 'npwp': npwp, 'bukti_penghasilan': bukti_penghasilan, 'jaminan': jaminan}
-
-def cek_kelengkapan_data(data):
-   
-    return all(data.values())
-
-def pemeriksaan_nilai_jaminan(jaminan):
-   
-    jaminan_yang_diakui = ['rumah', 'mobil', 'motor']
-    return jaminan.lower() in jaminan_yang_diakui
-
-def pencairan_dana():
-    
-    print("Proses pencairan dana kredit sedang diproses.....")"""
-    
 def penerimaan_keluhan():
     
     keluhan = input("Apakah ada keluhan atau pertanyaan? (ya/tidak): ").lower()
