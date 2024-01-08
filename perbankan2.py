@@ -251,12 +251,21 @@ def tampilkan_pertanyaan():
     }
 
     print(jawaban.get(pilihan, "Pilihan tidak valid. Silakan coba lagi."))
+    
+    ulangi_pertanyaan()
 
 def ulangi_atau_tidak():
     ulangi = input("Apakah Anda ingin menggunakan layanan lainnya? (ya/tidak): ").lower()
     if ulangi != "ya":
         print("Terima kasih telah menggunakan layanan kami.")
         exit()
+        
+def ulangi_pertanyaan():
+    ulangi = input("Apakah Anda ingin pertanyaan lagi? (ya/tidak): ").lower()
+    if ulangi == "ya":
+        tampilkan_pertanyaan()
+    else:
+        print("Kembali ke menu utama.")
    
 
 start()
